@@ -1,0 +1,57 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.app-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.background-dark {
+    background-color: rgb(61, 61, 61);
+}
+
+.gradient-text {
+    background: -webkit-linear-gradient(#13f7f4, #2af500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 15px;
+
+    .board-bar {
+        display: flex;
+        flex-direction: row;
+        background: rgba(gray,0.5);
+        padding: 8px 15px;
+
+        .btn-drop {
+            margin-right: 15px;
+        }
+
+        .board-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+    .board-wrapper {
+        display: flex;
+        flex-grow: 1;
+        overflow-x: auto;
+    
+        .board-columns {
+            display: flex;
+            flex-grow: 1;
+        }
+    }    
+}
+

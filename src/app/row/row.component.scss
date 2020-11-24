@@ -1,0 +1,39 @@
+.board-column {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 200px;
+  min-height: 500px;
+  margin: 15px;
+  padding: 25px;
+  border-radius: 4px;
+  background: rgba(rgb(167, 68, 68), 0.5);
+
+
+  &:not(:first-child) {
+    margin-left: 0;
+  }
+
+  .column-title {
+    font-size: 14px;
+    font-weight: 200;
+    padding: 10px;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    background: rgb(30, 74, 126);
+    border-radius: 20px;
+    
+    p {
+      margin: 0;
+      text-align: center;
+      line-height: 30px;
+    }
+  }
+
+  .mat-fab {
+    margin: 0 auto;
+
+  }
+}
