@@ -14,6 +14,10 @@ import { TaskComponent } from './task/task.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FormComponent } from './form/form.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 
 @NgModule({
@@ -34,6 +38,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatButtonModule,
     MatExpansionModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

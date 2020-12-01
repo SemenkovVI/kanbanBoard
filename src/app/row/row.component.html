@@ -1,9 +1,10 @@
+
 <div class="board-column">
   <div class="column-title id">
     <mat-icon>{{header}}</mat-icon>
     <p>{{name}}</p>
   </div>
-  <app-task *ngFor="let task of tasks" [text]="task.text" [index]="task.index" [id] = "id"></app-task>
+  <app-task *ngFor="let task of tasks" [text]="task.text" [index]="task.id" [id] = "id"></app-task>
 
       <button mat-fab disabled aria-label="button with a add icon">
           <mat-icon>add</mat-icon>

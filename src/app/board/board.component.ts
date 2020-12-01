@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TITLES } from '../mock-titles';
+import {Task} from '../task';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {CRUDServiceService} from '../crudservice.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {TASKS} from '../mock-tasks';
 
 @Component({
   selector: 'app-board',
@@ -8,10 +14,22 @@ import { TITLES } from '../mock-titles';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private crudService: CRUDServiceService) {
+  }
+
+  public titles = TITLES;
+  public tasks: Task[];
 
   ngOnInit(): void {
   }
 
-  public titles = TITLES;
+  public createObject(): void {
+    /* this.crudService.getData<Task>('tasks').subscribe((value: Task[])  => {
+       console.log(value);
+       this.tasks
+     }
+     });
+   }*/
+  }
 }
