@@ -1,5 +1,5 @@
 export interface Title {
-    index: number;
+    index: string;
     name: string;
     header: string;
-} 
+}
