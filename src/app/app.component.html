@@ -1,2 +1,17 @@
+
 <app-board></app-board>
-<app-form></app-form>
+<button (click)="createObject()">Create</button>
+<button (click)="addObject()">Add</button>
+<button (click)="updateObject()">Update</button>
+<button (click)="deleteObject()">Delete</button>
+<button  (click)="login()">
+  login
+</button>
+
+{{(authService.user$ | async)?.email}}
+<!--<img src="{{(authService.user$ | async)?.photoURL}}">-->
+
+
+<ng-container *ngFor="let task of tasks">{{task.name}}</ng-container>
+
+

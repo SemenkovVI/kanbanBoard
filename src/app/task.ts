@@ -1,4 +1,5 @@
 export interface Task {
-    index: number,
-    text: string,
+  id: string;
+  text: string;
+  name: string;
 }

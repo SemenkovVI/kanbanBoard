@@ -24,7 +24,7 @@
     margin-bottom: 20px;
     background: rgb(30, 74, 126);
     border-radius: 20px;
-    
+
     p {
       margin: 0;
       text-align: center;
@@ -36,4 +36,8 @@
     margin: 0 auto;
 
   }
+}
+
+.modal.show {
+  display: block;
 }

@@ -1,7 +1,8 @@
+
 <mat-card class="task-card" *ngIf="id == index">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>task</mat-card-title>
+      <mat-card-title>{{taskName}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="content">{{text}}</div>
@@ -9,3 +10,4 @@
     <mat-card-actions>
     </mat-card-actions>
   </mat-card>
+

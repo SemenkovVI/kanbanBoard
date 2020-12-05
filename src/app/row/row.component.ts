@@ -1,25 +1,45 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TASKS } from './../mock-tasks';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { CRUDServiceService } from '../crudservice.service';
+import { Task } from '../task';
 
 @Component({
   selector: 'app-row',
   templateUrl: './row.component.html',
-  styleUrls: ['./row.component.scss']
+  styleUrls: ['./row.component.scss'],
 })
 export class RowComponent implements OnInit {
+  constructor(private crudService: CRUDServiceService) {}
 
-  constructor() { }
+  @Input()
+  public name: string;
 
   @Input()
-  public name: string | undefined;
+  public id: string;
+
   @Input()
-  public id: number | undefined;
-  @Input()
-  public header: string | undefined;
+  public header: string;
+
+  public tasks: Task[];
+
+  showModal: boolean;
 
   ngOnInit(): void {
+    this.crudService.getData<Task>('tasks').subscribe((value: Task[]) => {
+      this.tasks = value;
+    });
   }
 
-  public tasks = TASKS;
+  public addObject(): void {
+    this.crudService.createEntity('tasks', {
+      text: 'Hello',
+      id: '2',
+      name: 'Task8',
+    });
+  }
 
+  onClose(isVisible: boolean) {
+    this.showModal = isVisible;
+  }
 }

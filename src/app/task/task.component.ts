@@ -1,19 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { CRUDServiceService } from '../crudservice.service';
+import { Task } from '../task';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss']
+  styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent implements OnInit {
+  @Input() public text: string;
 
-  @Input() public text: string | undefined;
-  @Input() public index: number | undefined;
-  @Input() public id: number | undefined;
+  @Input() public index: string;
 
-  constructor() { }
+  @Input() public id: string;
 
-  ngOnInit(): void {
-  }
+  @Input() public taskName: string;
 
+  ngOnInit(): void {}
 }
