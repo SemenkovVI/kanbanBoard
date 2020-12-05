@@ -12,7 +12,6 @@ import { CRUDServiceService } from '../crudservice.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  // tslint:disable-next-line:max-line-length
   constructor(private crudService: CRUDServiceService) {}
 
   public titles = TITLES;
