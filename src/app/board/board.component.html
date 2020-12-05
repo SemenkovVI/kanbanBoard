@@ -1,3 +1,4 @@
+
 <div class="root">
     <div class="navbar background-dark">
         <div class="navbar-brand">
@@ -9,8 +10,6 @@
 
 
 <div class="board">
-
-
     <div class="board-bar">
         <mat-icon class="btn-drop">arrow_drop_up</mat-icon>
         <p class="board-name">Board Name</p>
@@ -21,8 +20,8 @@
             <app-row *ngFor="let title of titles" [name]="title.name" [id]="title.index" [header]="title.header"></app-row>
         </div>
     </div>
-
+  <button (click)="createObject()">Create</button>
 </div>
 
 </div>
-<!-- *ngFor="let title of titles" -->
+

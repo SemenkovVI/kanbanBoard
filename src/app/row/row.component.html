@@ -1,11 +1,38 @@
+
 <div class="board-column">
   <div class="column-title id">
     <mat-icon>{{header}}</mat-icon>
     <p>{{name}}</p>
   </div>
-  <app-task *ngFor="let task of tasks" [text]="task.text" [index]="task.index" [id] = "id"></app-task>
+  <app-task *ngFor="let task of tasks" [text]="task.text" [index]="task.id" [taskName]="task.name" [id] = "id"></app-task>
 
-      <button mat-fab disabled aria-label="button with a add icon">
+  <div class="modal fade"
+       [ngClass]="{'show': showModal}"
+       id="staticBackdrop"
+       data-backdrop="static"
+       data-keyboard="false"
+       tabindex="-1"
+       aria-labelledby="staticBackdropLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="close" (click)="showModal=false" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-form [showModal]="showModal" (closeModalEvent)="onClose($event)" [id]="id"></app-form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="showModal=false" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <button mat-fab  (click)="showModal=true" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
           <mat-icon>add</mat-icon>
         </button>
 </div>
