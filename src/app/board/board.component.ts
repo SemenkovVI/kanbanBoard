@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { TITLES } from '../mock-titles';
 import { Task } from '../task';
 import { CRUDServiceService } from '../crudservice.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-board',
@@ -12,7 +14,7 @@ import { CRUDServiceService } from '../crudservice.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  constructor(private crudService: CRUDServiceService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   public titles = TITLES;
 
@@ -20,12 +22,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public createObject(): void {
-    /* this.crudService.getData<Task>('tasks').subscribe((value: Task[])  => {
-       console.log(value);
-       this.tasks
-     }
-     });
-   } */
+  public logout(): void {
+    this.authService.signOut().subscribe(() => this.router.navigate(['']));
   }
 }

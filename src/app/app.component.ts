@@ -14,33 +14,7 @@ export class AppComponent implements OnInit {
 
   public tasks: Task[];
 
-  ShowModal: any;
-
   constructor(private crudService: CRUDServiceService, public authService: AuthService) {}
-
-  public addObject(): void {
-    this.crudService.createEntity('tasks', {
-      text: 'gdfhcb',
-      id: '1',
-      name: 'Task6',
-    });
-  }
-
-  public createObject(): void {
-    this.crudService.getData<Task>('tasks').subscribe((value: Task[]) => console.log(value));
-  }
-
-  public updateObject(): void {
-    this.crudService.updateObject('books', 'FyrsQJGyrTtMowtN80tJ').subscribe();
-  }
-
-  public deleteObject(): void {
-    this.crudService.deleteObject('tasks', 'QnptySLWoLK1bC9E3Rf8').subscribe();
-  }
-
-  public login(): void {
-    this.authService.googleAuth().subscribe();
-  }
 
   ngOnInit(): void {}
 }

@@ -1,27 +1,18 @@
-
 <div class="root">
-    <div class="navbar background-dark">
-        <div class="navbar-brand">
-            <div class="navbar-item">
-                <h1 class="app-name gradient-text">kanban board</h1>
-            </div>
-        </div>
-    </div>
-
-
-<div class="board">
-    <div class="board-bar">
+  <app-header></app-header>
+    <div class="board">
+      <div class="board-bar">
         <mat-icon class="btn-drop">arrow_drop_up</mat-icon>
         <p class="board-name">Board Name</p>
-    </div>
+        <app-modal [row]="'1'"></app-modal>
+      </div>
 
-    <div class="board-wrapper">
-        <div class="board-columns">
+      <div class="board-wrapper">
+        <div class="board-columns" cdkDropListGroup>
             <app-row *ngFor="let title of titles" [name]="title.name" [id]="title.index" [header]="title.header"></app-row>
         </div>
+      </div>
     </div>
-  <button (click)="createObject()">Create</button>
-</div>
 
 </div>
 

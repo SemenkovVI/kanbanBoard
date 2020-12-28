@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  height: 8vh;
+  align-items: center;
+  justify-content: space-between;
+
+  .navbar-auth {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+
+    .user-img {
+      border-radius: 50px;
+      height: 40px;
+      margin: 0 5px;
+    }
+
+    .btn-auth {
+      height: 25px;
+      width: 50px;
+    }
+  }
+}
+
+.app-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.background-dark {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.gradient-text {
+  background: -webkit-linear-gradient(#03fdfc, #34ee0c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

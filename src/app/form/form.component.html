@@ -1,33 +1,91 @@
+<h2 mat-dialog-title>Form</h2>
+<button
+  mat-dialog-title
+  mat-dialog-close
+  class="btn-close">
+  <mat-icon>clear</mat-icon>
+</button>
 <form [formGroup]="ReactiveForm" (submit)="onSubmit()">
-  <label for="taskName">Название таски</label>
-  <input type="text" id="taskName" formControlName="taskName" />
-  <div class="error" *ngIf="isControlInvalid('taskName')">
-    Некорректное имя таски
-  </div>
-  <br/> <br/>
+  <mat-form-field class="example-full-width">
+    <mat-label>Task name</mat-label>
+    <input type="text" maxlength="45" id="taskName" matInput formControlName="taskName">
 
-  <label for="taskText">текст таски</label>
-  <textarea class="form-control" id="taskText"  aria-label="With textarea" formControlName="taskText"></textarea>
-  <div class="error" *ngIf="isControlInvalid('taskText')">
-    Некорректный текст
-  </div>
-  <br/> <br/>
+    <mat-error *ngIf="isControlInvalid('taskName')">
+      enter task name more than 3 characters
+    </mat-error>
 
-  <button
+    <mat-error *ngIf="isControlFilled('taskName')">
+      Task name is <strong>not filled</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Task text</mat-label>
+    <textarea
+      matInput
+      maxlength="500"
+      class="form-control"
+      id="taskText"
+      aria-label="With textarea"
+      formControlName="taskText"
+    >
+    </textarea>
+
+    <mat-error *ngIf="isControlInvalid('taskText')">
+      Please don't start text without a space
+    </mat-error>
+
+    <mat-error *ngIf="isControlFilled('taskText')">
+      Task text is <strong>not filled</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field  class = "example-full-width"  appearance = "fill">
+    <mat-label> Выберите дату </mat-label>
+    <input
+      matInput
+      [matDatepickerFilter]="myFilter"
+      [matDatepicker]="picker"
+      formControlName="deadline"
+    >
+    <mat-datepicker-toggle  matSuffix [for] = "picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <mat-error *ngIf="isControlFilled('deadline')">
+      Deadline is <strong>not filled</strong>
+    </mat-error>
+  </mat-form-field>
+
+<mat-dialog-actions>
+  <button *ngIf="!data.id"
+    mat-button
+    mat-dialog-close
     type="submit"
     class="btn btn-primary"
     [disabled]="ReactiveForm.invalid"
     (click)="
       addObject();
       deleteValue();
-      onCloseModal($event)"
+      "
   >
     Создать
   </button>
+  <button
+    *ngIf="data.id"
+    mat-button
+    mat-dialog-close
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="ReactiveForm.invalid"
+    (click)="
+      updateObject();
+      deleteValue();
+      "
+  >
+    Обновить
+  </button>
+</mat-dialog-actions>
 </form>
 <hr /> <br />
 
-<div>
-  {{ReactiveForm.value | json}}
-</div>
 

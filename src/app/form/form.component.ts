@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CRUDServiceService } from '../crudservice.service';
 
 @Component({
@@ -11,14 +12,13 @@ export class FormComponent implements OnInit {
   ReactiveForm: FormGroup;
 
   @Input()
-  public id: string;
+  public row: string;
 
-  @Input()
-  public showModal: boolean;
-
-  @Output() closeModalEvent = new EventEmitter<boolean>();
-
-  constructor(private formBuild: FormBuilder, private crudService: CRUDServiceService) {}
+  constructor(
+    private formBuild: FormBuilder,
+    private crudService: CRUDServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -34,35 +34,57 @@ export class FormComponent implements OnInit {
 
   public isControlInvalid(controlName: string): boolean {
     const control = this.ReactiveForm.controls[controlName];
-
-    const result = control.invalid && control.touched;
-
+    const result = control.invalid && control.touched && control.value !== '';
     return result;
   }
 
+  public isControlFilled(controlName: string): boolean {
+    const control = this.ReactiveForm.controls[controlName];
+    return control.value === '';
+  }
+
   public deleteValue(): any {
-    this.ReactiveForm.patchValue({
-      taskName: '',
-      taskText: '',
-    });
+    this.ReactiveForm.reset();
+    this.ReactiveForm.markAsUntouched();
   }
 
   public addObject(): void {
     this.crudService.createEntity('tasks', {
       text: this.ReactiveForm.value.taskText,
-      id: this.id,
+      row: this.data.row,
       name: this.ReactiveForm.value.taskName,
+      deadline: this.ReactiveForm.value.deadline,
+    });
+  }
+
+  public updateObject(): void {
+    this.crudService.updateObject('tasks', this.data.id, {
+      text: this.ReactiveForm.value.taskText,
+      row: this.data.row,
+      name: this.ReactiveForm.value.taskName,
+      deadline: this.ReactiveForm.value.deadline,
     });
   }
 
   private initForm(): void {
-    this.ReactiveForm = this.formBuild.group({
-      taskName: ['', [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,16}$/)]],
-      taskText: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
-    });
+    if (this.data.id) {
+      this.ReactiveForm = this.formBuild.group({
+        taskName: [this.data.name, [Validators.required, Validators.pattern(/^[\S]{2,}/)]],
+        taskText: [this.data.text, [Validators.required, Validators.pattern(/^[\S]/)]],
+        deadline: [this.data.deadline, [Validators.required]],
+      });
+    } else {
+      this.ReactiveForm = this.formBuild.group({
+        taskName: ['', [Validators.required, Validators.pattern(/^[\S]{2,}/)]],
+        taskText: ['', [Validators.required, Validators.pattern(/^[\S]/)]],
+        deadline: ['', [Validators.required]],
+      });
+    }
   }
 
-  onCloseModal(event: any) {
-    this.closeModalEvent.emit(false);
-  }
+  public myFilter = (d: Date | null): boolean => {
+    const date = d || new Date();
+    const dateNow = new Date();
+    return date > dateNow;
+  };
 }

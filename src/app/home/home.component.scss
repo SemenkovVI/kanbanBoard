@@ -1,0 +1,20 @@
+.root {
+  height: 100vh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+  ), url("../../assets/main (3).png") no-repeat fixed;
+  background-size: cover;
+
+  .home {
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-auth {
+    background-color: #0088cc;
+  }
+}

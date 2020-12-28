@@ -18,11 +18,11 @@ export class CRUDServiceService {
     );
   }
 
-  public getData<T>(collectionName: string): Observable<T[]> {
+  public getData<T>(collectionName: string, row: string): Observable<T[]> {
     return this.firestoreService
       .collection(collectionName, (ref) => {
         const query: firestore.Query = ref;
-        return query;
+        return query.where('row', '==', row);
       })
       .snapshotChanges()
       .pipe(
@@ -36,9 +36,21 @@ export class CRUDServiceService {
       );
   }
 
-  public updateObject(collectionName: string = 'tasks', id: string): Observable<void> {
+  public update(data: any) {
+    return this.firestoreService
+      .collection('tasks')
+      .doc(data.payload.doc.id)
+      .set({ completed: true }, { merge: true });
+  }
+
+  public updateObject(collectionName: string = 'tasks', id: string, data: any): Observable<void> {
     return from(
-      this.firestoreService.collection(collectionName).doc(id).set({ name: 'Name' }),
+      this.firestoreService.collection(collectionName).doc(id).set({
+        name: data.name,
+        row: data.row,
+        text: data.text,
+        deadline: data.deadline,
+      }),
     ).pipe(take(1));
   }
 

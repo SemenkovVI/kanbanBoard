@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { from, Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { CRUDServiceService } from './crudservice.service';
@@ -40,6 +40,10 @@ export class AuthService {
         }
       }),
     );
+  }
+
+  public signOut(): Observable<void> {
+    return from(this.angAuthService.signOut()).pipe(take(1));
   }
 
   private updateUserData(user: firebase.User | null): Promise<void> {
