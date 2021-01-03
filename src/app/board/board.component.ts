@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -13,14 +13,17 @@ import { AuthService } from '../auth.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
   constructor(public authService: AuthService, private router: Router) {}
 
   public titles = TITLES;
 
   public tasks: Task[];
 
-  ngOnInit(): void {}
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeunloadHandler(event: any) {
+  //   this.authService.signOut();
+  // }
 
   public logout(): void {
     this.authService.signOut().subscribe(() => this.router.navigate(['']));

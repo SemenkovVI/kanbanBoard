@@ -1,14 +1,10 @@
 
-<mat-card class="task-card" (click)="onCreate()" >
-<!--  <button type="button" class="btn btn-hover" (click)="onCreate()" data-dismiss="modal">-->
-<!--    <mat-icon>create</mat-icon>-->
-<!--  </button>-->
+<mat-card class="task-card" (click)="onCreate()">
     <mat-card-content>
       <div class="title">{{taskName}}</div>
       <div class="content">{{text}}</div>
     </mat-card-content>
     <mat-card-actions>
-      <button type="button" class="btn btn-hover" (click)="deleteObject()" data-dismiss="modal"><mat-icon>delete</mat-icon></button>
     </mat-card-actions>
   </mat-card>
 

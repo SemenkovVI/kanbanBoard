@@ -36,6 +36,8 @@ export class TaskComponent implements OnInit {
 
   @Input() public task: Task;
 
+  @Input() public tags: [] | undefined;
+
   ngOnInit(): void {}
 
   public deleteObject(): void {
@@ -43,6 +45,7 @@ export class TaskComponent implements OnInit {
   }
 
   onCreate() {
+    console.log(this.tags);
     this.dialog.open(FormComponent, {
       data: {
         id: this.taskID,
@@ -50,6 +53,7 @@ export class TaskComponent implements OnInit {
         row: this.index,
         text: this.text,
         deadline: new Date(this.deadline.seconds * 1000),
+        tags: this.tags,
       },
     });
   }

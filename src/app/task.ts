@@ -7,4 +7,5 @@ export interface Task {
   text: string;
   name: string;
   deadline: Timestamp;
+  tags?: [];
 }

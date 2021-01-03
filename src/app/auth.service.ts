@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { from, Observable, of } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import {map, switchMap, take, tap} from 'rxjs/operators';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { CRUDServiceService } from './crudservice.service';
@@ -54,6 +54,16 @@ export class AuthService {
       displayName: user?.displayName,
       photoURL: user?.photoURL,
     };
-    return userRef.set(data, { merge: true });
+    return userRef.set(data, {merge: true});
+  }
+
+  public checkAuth(): Observable<any> {
+    return this.user$.pipe(
+      take(1),
+      map((value) => !!value),
+      tap((isLogged) => {
+        return isLogged;
+      }),
+    );
   }
 }

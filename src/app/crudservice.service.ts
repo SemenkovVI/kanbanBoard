@@ -50,6 +50,7 @@ export class CRUDServiceService {
         row: data.row,
         text: data.text,
         deadline: data.deadline,
+        tags: data.tags,
       }),
     ).pipe(take(1));
   }

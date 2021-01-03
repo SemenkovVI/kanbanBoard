@@ -7,7 +7,7 @@
         <app-modal [row]="'1'"></app-modal>
       </div>
 
-      <div class="board-wrapper">
+      <div class="board-wrapper" >
         <div class="board-columns" cdkDropListGroup>
             <app-row *ngFor="let title of titles" [name]="title.name" [id]="title.index" [header]="title.header"></app-row>
         </div>

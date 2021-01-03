@@ -27,6 +27,8 @@ import { ModalComponent } from './modal/modal.component';
 import { HomeComponent } from './home/home.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import { HeaderComponent } from './header/header.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { HeaderComponent } from './header/header.component';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
+    MatAutocompleteModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

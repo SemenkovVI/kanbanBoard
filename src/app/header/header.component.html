@@ -4,11 +4,37 @@
       <h1 class="app-name gradient-text">kanban board</h1>
     </div>
   </div>
-  <div class="navbar-auth">
-    <div class="navbar-auth-info">
-      {{(authService.user$ | async)?.email}}
-    </div>
-    <img class="user-img" src="{{(authService.user$ | async)?.photoURL}}" />
-    <button class="btn-auth" (click)="logout()">logout</button>
+  <div class="navbar-auth" *ngIf="isLogged">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <img class="user-img" src="{{(authService.user$ | async)?.photoURL}}" />
+    </button>
+    <mat-menu #menu="matMenu" class="profile-menu">
+      <div class="item" mat-menu-item>
+          <img class="user-img" src="{{(authService.user$ | async)?.photoURL}}" />
+        <div class="user-info">
+          <div class="user-info-name">
+            <p>{{(authService.user$ | async)?.displayName}}</p>
+          </div>
+          <div class="user-info-email">
+            <p>{{(authService.user$ | async)?.email}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="item" mat-menu-item>
+        <div class="shared">
+          <h2>Shared my app</h2>
+          <a href='http://vkontakte.ru/share.php?url=https://kanbanboard-d6b9c.web.app/' target='_blank'>
+            <img src='./assets/icons8-vk-в-круге.svg' border='0' width='32' height='32' alt='Вк' title='Поделиться ВКонтакте'>
+          </a>
+          <a href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkanbanboard-d6b9c.web.app%2F&amp;src=sdkpreparse' target='_blank'>
+            <img src='./assets/icons8-facebook.svg' border='0' width='32' height='32' alt='Фэйсбук' title='Поделиться Фэйсбук'>
+          </a>
+          <a href='https://www.linkedin.com/sharing/share-offsite/?url=https://kanbanboard-d6b9c.web.app/' target='_blank'>
+            <img src='./assets/icons8-обеденные-кругом.svg' border='0' width='32' height='32' alt='Линкедин' title='Поделиться Линкедин'>
+          </a>
+        </div>
+      </div>
+    </mat-menu>
+      <button mat-stroked-button class="btn-auth" (click)="logout()">Log out</button>
   </div>
 </div>
