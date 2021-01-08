@@ -1,0 +1,10 @@
+<mat-chip
+  [style.background]="tag.color"
+  selectable="true"
+  removable="true"
+  (removed)="remove(tag)"
+>
+  {{tag.name}}
+  <mat-icon (click)="openColorPickerDialog(tag)" class="mat-icon mat-chip-remove ">color_lense</mat-icon>
+  <mat-icon (click)="deleteTag()" matChipRemove>cancel</mat-icon>
+</mat-chip>

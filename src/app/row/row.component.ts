@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { CRUDServiceService } from '../crudservice.service';
+import { CRUDServiceService } from '../services/crudservice.service';
 import { Task } from '../task';
 
 @Component({
@@ -11,7 +11,8 @@ import { Task } from '../task';
   styleUrls: ['./row.component.scss'],
 })
 export class RowComponent implements OnInit {
-  constructor(private crudService: CRUDServiceService) {}
+  constructor(private crudService: CRUDServiceService) {
+  }
 
   @Input()
   public name: string;

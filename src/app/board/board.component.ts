@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { TITLES } from '../mock-titles';
 import { Task } from '../task';
-import { CRUDServiceService } from '../crudservice.service';
-import { AuthService } from '../auth.service';
+import { CRUDServiceService } from '../services/crudservice.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-board',

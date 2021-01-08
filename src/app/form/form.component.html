@@ -43,6 +43,7 @@
     </mat-error>
   </mat-form-field>
 
+
   <mat-form-field  class = "example-full-width"  appearance = "fill">
     <mat-label> Выберите дату </mat-label>
     <input
@@ -59,36 +60,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class = "example-full-width">
-    <mat-label>Tags</mat-label>
-      <mat-chip-list #chipList>
-        <mat-chip
-          [style.background]="'#e0e0e0'"
-          *ngFor="let tag of tags"
-          selectable="true"
-          removable="true"
-          (removed)="remove(tag)"
-        >
-          {{tag}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="New tag..."
-          #fruitInput
-          [formControl]="tagsCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-          {{tag}}
-        </mat-option>
-      </mat-autocomplete>
-  </mat-form-field>
-
-
+  <app-tags [row]="row" [id]="data.id"></app-tags>
 
 <mat-dialog-actions>
   <button *ngIf="!data.id"
@@ -128,6 +100,7 @@
   >
     <mat-icon>delete</mat-icon>
   </button>
+
 </mat-dialog-actions>
 </form>
 </mat-dialog-content>

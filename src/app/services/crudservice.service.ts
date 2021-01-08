@@ -18,7 +18,12 @@ export class CRUDServiceService {
     );
   }
 
-  public getData<T>(collectionName: string, row: string): Observable<T[]> {
+  public getData<T>(
+    collectionName: string,
+    row: string,
+    uid?: string,
+    allData: boolean = false,
+  ): Observable<T[]> {
     return this.firestoreService
       .collection(collectionName, (ref) => {
         const query: firestore.Query = ref;
@@ -36,22 +41,21 @@ export class CRUDServiceService {
       );
   }
 
-  public update(data: any) {
-    return this.firestoreService
-      .collection('tasks')
-      .doc(data.payload.doc.id)
-      .set({ completed: true }, { merge: true });
+  public update(collectionName: string = 'tasks', id: string, data: any) {
+    return from(
+      this.firestoreService
+        .collection(collectionName)
+        .doc(id)
+        .update({ ...data }),
+    ).pipe(take(1));
   }
 
   public updateObject(collectionName: string = 'tasks', id: string, data: any): Observable<void> {
     return from(
-      this.firestoreService.collection(collectionName).doc(id).set({
-        name: data.name,
-        row: data.row,
-        text: data.text,
-        deadline: data.deadline,
-        tags: data.tags,
-      }),
+      this.firestoreService
+        .collection(collectionName)
+        .doc(id)
+        .set({ ...data }, { merge: true }),
     ).pipe(take(1));
   }
 

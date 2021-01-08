@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CRUDServiceService } from '../crudservice.service';
+import { CRUDServiceService } from '../services/crudservice.service';
 import { Task } from '../task';
 import { FormComponent } from '../form/form.component';
 import firebase from 'firebase';
@@ -45,7 +45,6 @@ export class TaskComponent implements OnInit {
   }
 
   onCreate() {
-    console.log(this.tags);
     this.dialog.open(FormComponent, {
       data: {
         id: this.taskID,

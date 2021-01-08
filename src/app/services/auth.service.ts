@@ -6,7 +6,7 @@ import {map, switchMap, take, tap} from 'rxjs/operators';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { CRUDServiceService } from './crudservice.service';
-import { User } from './user';
+import { User } from '../user';
 import auth = firebase.auth;
 import UserCredential = firebase.auth.UserCredential;
 

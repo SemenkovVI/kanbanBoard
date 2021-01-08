@@ -9,14 +9,18 @@ import {
   ElementRef,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { TITLES } from '../mock-titles';
-import { CRUDServiceService } from '../crudservice.service';
+import { Tag } from '../tag';
+import { CRUDServiceService } from '../services/crudservice.service';
+import { ColorPickerComponent } from '../tags/tag/color-picker/color-picker.component';
+import { Task } from '../task';
+import {TagserviceService} from '../services/tagservice.service';
 
 @Component({
   selector: 'app-form',
@@ -29,35 +33,18 @@ export class FormComponent implements OnInit {
   @Input()
   public row: string;
 
-  tagsCtrl = new FormControl();
-
-  public tags: string[] = this.data.tags ? this.data.tags : [];
-
   public Titles = TITLES;
 
   public rowNumber: number = parseInt(this.data.row, 10) - 1;
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  filteredTags: Observable<string[]>;
-
-  @ViewChild('tagsInput') fruitInput: ElementRef<HTMLInputElement>;
-
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
-
-  allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  allTags: string[];
 
   constructor(
     private formBuild: FormBuilder,
     private crudService: CRUDServiceService,
+    private tagService: TagserviceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    console.log(this.tags);
-    this.filteredTags = this.tagsCtrl.valueChanges.pipe(
-      startWith(null),
-      map((tag: string | null) => (tag ? this.filter(tag) : this.allTags.slice())),
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -93,7 +80,6 @@ export class FormComponent implements OnInit {
       row: this.data.row,
       name: this.ReactiveForm.value.taskName,
       deadline: this.ReactiveForm.value.deadline,
-      tags: this.tags,
     });
   }
 
@@ -103,7 +89,6 @@ export class FormComponent implements OnInit {
       row: this.data.row,
       name: this.ReactiveForm.value.taskName,
       deadline: this.ReactiveForm.value.deadline,
-      tags: this.tags,
     });
   }
 
@@ -131,45 +116,5 @@ export class FormComponent implements OnInit {
 
   public deleteObject(): void {
     this.crudService.deleteObject('tasks', this.data.id).subscribe();
-  }
-
-  public remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
-
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-      this.updateObject();
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.tagsCtrl.setValue(null);
-  }
-
-  public add(event: MatChipInputEvent): void {
-    const { input } = event;
-    const { value } = event;
-
-    if ((value || '').trim()) {
-      this.tags.push(value.trim());
-    }
-
-    if (input) {
-      input.value = '';
-    }
-
-    if (this.data.id) {
-      this.updateObject();
-    }
-
-    this.tagsCtrl.setValue(null);
-  }
-
-  private filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allTags.filter((tag) => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 }

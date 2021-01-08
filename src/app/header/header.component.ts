@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +16,12 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   public isLoggedSub: Subscription;
 
-  constructor(public authService: AuthService, private router: Router) {
-  }
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.isLoggedSub = this.authService.checkAuth().subscribe((el) => {
       this.isLogged = el;
     });
-    console.log(this.isLoggedSub);
   }
 
   ngOnDestroy() {

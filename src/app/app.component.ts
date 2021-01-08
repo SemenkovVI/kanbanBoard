@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { CRUDServiceService } from './crudservice.service';
+import { CRUDServiceService } from './services/crudservice.service';
 import { Book } from './book';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { Task } from './task';
 import {Router} from '@angular/router';
 
