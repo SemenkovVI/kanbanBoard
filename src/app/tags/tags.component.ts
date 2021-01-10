@@ -33,6 +33,7 @@ export class TagsComponent implements OnInit {
 
   public allTagsName: string[];
 
+  public tagId: string[];
 
   public color = '#e0e0e0';
 
@@ -82,9 +83,15 @@ export class TagsComponent implements OnInit {
     });
   }
 
-  public addTags(): void {
-    this.tagService.update('tags', this.id, {
+  public addTags(tagId: string): void {
+    this.tagService.update('tags', tagId, {
       uid: firebase.firestore.FieldValue.arrayUnion(this.id),
+    });
+  }
+
+  public getTagId() {
+    this.tagService.getTagId('tags', this.row, this.allTagsName).subscribe((value) => {
+      this.tagId = value;
     });
   }
 
@@ -97,10 +104,8 @@ export class TagsComponent implements OnInit {
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
-    // if (!this.allTagsName.includes(event.option.viewValue)) {
-    //   this.allTagsName.push(event.option.viewValue);
-    // }
-    this.addTags();
+    const index = this.allTagsName.indexOf(event.option.value);
+    this.addTags(this.tagId[index]);
     this.tagInput.nativeElement.value = '';
     this.tagsCtrl.setValue(null);
   }

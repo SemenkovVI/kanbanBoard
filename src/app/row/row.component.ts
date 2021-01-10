@@ -11,8 +11,7 @@ import { Task } from '../task';
   styleUrls: ['./row.component.scss'],
 })
 export class RowComponent implements OnInit {
-  constructor(private crudService: CRUDServiceService) {
-  }
+  constructor(private crudService: CRUDServiceService) {}
 
   @Input()
   public name: string;
@@ -23,12 +22,15 @@ export class RowComponent implements OnInit {
   @Input()
   public header: string;
 
+  @Input()
+  public color: string;
+
   public tasks: Task[];
 
   showModal: boolean;
 
   ngOnInit(): void {
-    this.crudService.getData<Task>('tasks', this.id).subscribe((value: Task[]) => {
+    this.crudService.getDataByRow<Task>('tasks', this.id).subscribe((value: Task[]) => {
       this.tasks = value;
     });
   }

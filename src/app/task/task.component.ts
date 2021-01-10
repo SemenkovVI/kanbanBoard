@@ -1,13 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from } from 'rxjs';
+import {from, Subscription} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import firebase from 'firebase';
+import {ActivatedRoute, Router} from '@angular/router';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { Task } from '../task';
 import { FormComponent } from '../form/form.component';
-import firebase from 'firebase';
+import { Tag } from '../tag';
+import { TagserviceService } from '../services/tagservice.service';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
@@ -20,7 +23,12 @@ export class TaskComponent implements OnInit {
     private crudService: CRUDServiceService,
     private firestoreService: AngularFirestore,
     private dialog: MatDialog,
+    public route: ActivatedRoute,
+    private router: Router,
+    private tagService: TagserviceService,
   ) {}
+
+  routeQueryParams$: Subscription;
 
   @Input() public text: string;
 
@@ -36,24 +44,44 @@ export class TaskComponent implements OnInit {
 
   @Input() public task: Task;
 
-  @Input() public tags: [] | undefined;
+  public idForRoute: {};
 
-  ngOnInit(): void {}
+  public tags: Tag[];
+
+  ngOnInit(): void {
+    this.tagService.getTags<Tag>('tags', this.index, this.taskID).subscribe((value: Tag[]) => {
+      this.tags = value;
+    });
+    this.idForRoute = { taskId: this.task.id };
+  }
 
   public deleteObject(): void {
     this.crudService.deleteObject('tasks', this.taskID).subscribe();
   }
 
+  public init() {
+    this.routeQueryParams$ = this.route.queryParams.subscribe((params) => {
+      if (params.taskId) {
+        this.onCreate();
+      }
+    });
+  }
+
   onCreate() {
-    this.dialog.open(FormComponent, {
+    console.log('create');
+    const dialogRef = this.dialog.open(FormComponent, {
       data: {
         id: this.taskID,
         name: this.taskName,
         row: this.index,
         text: this.text,
         deadline: new Date(this.deadline.seconds * 1000),
-        tags: this.tags,
       },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.routeQueryParams$.unsubscribe();
+      this.router.navigate(['.'], { relativeTo: this.route });
     });
   }
 }

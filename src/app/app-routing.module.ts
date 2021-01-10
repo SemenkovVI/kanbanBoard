@@ -3,10 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BoardComponent } from './board/board.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { FormComponent } from './form/form.component';
+import { TaskComponent } from './task/task.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'board', component: BoardComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'board',
+    component: BoardComponent,
+    canActivate: [AuthGuardService],
+  },
+  { path: 'board/:id', component: FormComponent}
 ];
 
 @NgModule({

@@ -24,4 +24,13 @@
     }
   }
 
+  ::ng-deep .mat-chip-list-wrapper {
+    .mat-chip {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+    .mat-standard-chip {
+      min-height: 25px;
+    }
+  }
 }

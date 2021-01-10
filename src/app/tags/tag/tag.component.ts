@@ -18,6 +18,8 @@ export class TagComponent implements OnInit {
 
   @Input() tags: Tag[];
 
+  @Input() isForm: boolean;
+
   public color: string;
 
   constructor(private tagService: TagserviceService, public colorPickerDialog: MatDialog) {}

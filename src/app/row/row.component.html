@@ -1,7 +1,9 @@
 <div class="board-column">
-  <div class="column-title id">
-    <mat-icon>{{header}}</mat-icon>
-    <p>{{name}}</p>
+  <div class="column-title id" [style]="{background: color}">
+    <mat-icon style="font-size: 20px">{{header}}</mat-icon>
+    <div class="column-title-wrapper">
+    <div class="column-title-name">{{name}}</div>
+    </div>
   </div>
 
   <div
@@ -14,13 +16,13 @@
 
     <app-task
       *ngFor="let task of tasks"
+      [task]="task"
       [taskID]="task.id"
       [text]="task.text"
       [index]="task.row"
       [taskName]="task.name"
       [id] = "id"
       [deadline]="task.deadline"
-      [tags]="task.tags"
       cdkDrag
     >
     </app-task>

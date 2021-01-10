@@ -9,10 +9,10 @@
 
       <div class="board-wrapper" >
         <div class="board-columns" cdkDropListGroup>
-            <app-row *ngFor="let title of titles" [name]="title.name" [id]="title.index" [header]="title.header"></app-row>
+            <app-row *ngFor="let title of titles; let index;" [name]="title.name" [id]="title.index" [header]="title.header" [color]="title.color"></app-row>
         </div>
       </div>
     </div>
-
 </div>
+<router-outlet></router-outlet>
 

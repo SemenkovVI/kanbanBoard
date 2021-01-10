@@ -61,6 +61,23 @@ export class TagserviceService {
       );
   }
 
+  public getTagId(collectionName: string, row: string, name: string[]): Observable<any[]> {
+    return this.firestoreService
+      .collection(collectionName, (ref) => {
+        const query: firestore.Query = ref;
+        return query.where('name', 'in', name);
+      })
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const { id }: any = a.payload.doc;
+            return id;
+          }),
+        ),
+      );
+  }
+
   public createEntity(collectionName: string, data: {}): Observable<string> {
     return from(this.firestoreService.collection(collectionName).add(data)).pipe(
       map((value: any) => value.id),

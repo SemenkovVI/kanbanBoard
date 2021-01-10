@@ -2,8 +2,9 @@
 <mat-form-field class = "example-full-width">
   <mat-chip-list #chipList>
 
-   <app-tag *ngFor="let tag of tags" [tags]="tags" [tag]="tag" [rowId]="id" ></app-tag>
+   <app-tag *ngFor="let tag of tags" [tags]="tags" [tag]="tag" [rowId]="id" [isForm]="true"></app-tag>
     <input
+      (click)="getTagId()"
       #tagInput
       [formControl]="tagsCtrl"
       [matAutocomplete]="auto"

@@ -1,12 +1,12 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { TITLES } from '../mock-titles';
 import { Task } from '../task';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { AuthService } from '../services/auth.service';
+import { Title } from '../title';
 
 @Component({
   selector: 'app-board',
@@ -14,11 +14,21 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
-  constructor(public authService: AuthService, private router: Router) {}
+  public titles: Title[];
 
-  public titles = TITLES;
+  public sortTitles: Title[];
 
   public tasks: Task[];
+
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private crudService: CRUDServiceService,
+  ) {
+    this.crudService.getData<Title>('titles').subscribe((value) => {
+      this.titles = value.sort((value1, value2) => (value1.index > value2.index ? 1 : -1));
+    });
+  }
 
   // @HostListener('window:beforeunload', ['$event'])
   // beforeunloadHandler(event: any) {

@@ -24,19 +24,28 @@
   }
 
   .column-title {
-    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
     font-weight: 200;
     padding: 10px;
     font-family: 'Lato', sans-serif;
     text-transform: uppercase;
     margin-bottom: 20px;
-    background: rgb(30, 74, 126);
-    border-radius: 20px;
+    border-radius: 30px;
 
-    p {
-      margin: 0;
-      text-align: center;
-      line-height: 30px;
+    .column-title-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .column-title-name {
+        margin: 0;
+        text-align: center;
+        line-height: 30px;
+      }
     }
 
 

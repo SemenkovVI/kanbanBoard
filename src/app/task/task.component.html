@@ -1,10 +1,14 @@
 
-<mat-card class="task-card" (click)="onCreate()">
+<mat-card class="task-card" >
     <mat-card-content>
       <div class="title">{{taskName}}</div>
       <div class="content">{{text}}</div>
     </mat-card-content>
     <mat-card-actions>
+      <mat-chip-list class="chip-list">
+        <app-tag class="chip" *ngFor="let tag of tags" [tags]="tags" [tag]="tag" [rowId]="id" [isForm]="false"></app-tag>
+      </mat-chip-list>
     </mat-card-actions>
+  <a (click)="init()" routerLink="/board" [queryParams]="idForRoute">Task</a>
   </mat-card>
 

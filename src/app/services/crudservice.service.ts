@@ -18,7 +18,7 @@ export class CRUDServiceService {
     );
   }
 
-  public getData<T>(
+  public getDataByRow<T>(
     collectionName: string,
     row: string,
     uid?: string,
@@ -29,6 +29,21 @@ export class CRUDServiceService {
         const query: firestore.Query = ref;
         return query.where('row', '==', row);
       })
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data: any = a.payload.doc.data();
+            const { id } = a.payload.doc;
+            return { id, ...data } as T;
+          }),
+        ),
+      );
+  }
+
+  public getData<T>(collectionName: string): Observable<T[]> {
+    return this.firestoreService
+      .collection(collectionName)
       .snapshotChanges()
       .pipe(
         map((actions) =>

@@ -13,14 +13,15 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { TITLES } from '../mock-titles';
 import { Tag } from '../tag';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { ColorPickerComponent } from '../tags/tag/color-picker/color-picker.component';
 import { Task } from '../task';
-import {TagserviceService} from '../services/tagservice.service';
+import { TagserviceService } from '../services/tagservice.service';
+import { Title } from '../title';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -33,7 +34,7 @@ export class FormComponent implements OnInit {
   @Input()
   public row: string;
 
-  public Titles = TITLES;
+  public Titles: Title[];
 
   public rowNumber: number = parseInt(this.data.row, 10) - 1;
 
@@ -43,11 +44,15 @@ export class FormComponent implements OnInit {
     private formBuild: FormBuilder,
     private crudService: CRUDServiceService,
     private tagService: TagserviceService,
+    private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.crudService.getData<Title>('titles').subscribe((value) => {
+      this.Titles = value.sort((value1, value2) => (value1.index > value2.index ? 1 : -1));
+    });
   }
 
   public onSubmit(): any {
