@@ -53,6 +53,10 @@ export class TaskComponent implements OnInit {
       this.tags = value;
     });
     this.idForRoute = { taskId: this.task.id };
+
+    if (this.router.url === `/board?taskId=${this.taskID}`) {
+      this.onCreate();
+    }
   }
 
   public deleteObject(): void {
@@ -68,7 +72,6 @@ export class TaskComponent implements OnInit {
   }
 
   onCreate() {
-    console.log('create');
     const dialogRef = this.dialog.open(FormComponent, {
       data: {
         id: this.taskID,
@@ -80,7 +83,9 @@ export class TaskComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.routeQueryParams$.unsubscribe();
+      if (this.routeQueryParams$) {
+        this.routeQueryParams$.unsubscribe();
+      }
       this.router.navigate(['.'], { relativeTo: this.route });
     });
   }

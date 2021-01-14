@@ -11,8 +11,6 @@
     //margin: 15px;
 
 
-  overflow-y: auto !important;
-
   min-width: 0;
   min-height: 0;
 
@@ -30,6 +28,7 @@
             font-size: 20px;
             font-weight: bold;
             color: white;
+            align-self: center;
         }
     }
 

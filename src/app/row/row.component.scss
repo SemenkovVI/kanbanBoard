@@ -9,7 +9,7 @@
   padding: 15px;
   border-radius: 4px;
   background: rgba(white, 0.5);
-
+overflow-y: auto;
 
   vertical-align: top;
 
@@ -26,6 +26,7 @@
   .column-title {
     display: flex;
     flex-direction: row;
+    align-items: center;
     font-size: 15px;
     font-weight: 200;
     padding: 10px;
@@ -76,7 +77,9 @@
     //border-radius: 4px;
     //overflow: hidden;
     //display: flex;
-    min-height: 50vh;
+    height: 65vh;
+    overflow-y: auto;
+
   }
 
   .mat-fab {

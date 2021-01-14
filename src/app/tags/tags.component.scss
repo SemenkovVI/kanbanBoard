@@ -2,3 +2,19 @@
   width: 100%;
 }
 
+//::ng-deep mat-option{
+//  :hover {
+//    background-color: blue;
+//  }
+//}
+
+.mat-option.mat-active {
+  background-color: red !important;
+}
+
+.mat-option:hover:not(.mat-option-disabled) {
+  .mat-option.mat-active {
+    background-color: white !important;
+  }
+  background-color: red !important;
+}

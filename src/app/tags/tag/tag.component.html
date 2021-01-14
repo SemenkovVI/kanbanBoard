@@ -4,7 +4,9 @@
   removable="true"
   (removed)="remove(tag)"
 >
-  {{tag.name}}
+  <span class="text-truncate" [ngClass]="{'text-truncate': true}" style="max-width: 80px;" (click)="openDialog()">
+    {{tag.name}}
+  </span>
   <mat-icon (click)="openColorPickerDialog(tag)" class="mat-icon mat-chip-remove" *ngIf="isForm" >color_lense</mat-icon>
   <mat-icon (click)="deleteTag()" matChipRemove *ngIf="isForm" >cancel</mat-icon>
 </mat-chip>

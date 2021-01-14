@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {MatAutocomplete, MatAutocompleteActivatedEvent, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ import firebase from 'firebase';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { Tag } from '../tag';
 import { TagserviceService } from '../services/tagservice.service';
+import {MatOptionSelectionChange} from '@angular/material/core';
 
 @Component({
   selector: 'app-tags',
@@ -47,12 +48,7 @@ export class TagsComponent implements OnInit {
 
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private tagService: TagserviceService) {
-    // this.filteredTags = this.tagsCtrl.valueChanges.pipe(
-    //   startWith(null),
-    //   map((tag: string | null) => (tag ? this.filter(tag) : this.allTagsName.slice())),
-    // );
-  }
+  constructor(private tagService: TagserviceService) {}
 
   ngOnInit(): void {
     this.tagService.getTags<Tag>('tags', this.row, this.id).subscribe((value: Tag[]) => {
@@ -67,6 +63,10 @@ export class TagsComponent implements OnInit {
         map((tag: string | null) => (tag ? this.filter(tag) : this.allTagsName.slice())),
       );
     });
+  }
+
+  public clear(event: MatOptionSelectionChange) {
+    console.log(event.source.value);
   }
 
   public addObject(name: string, color: string): void {
@@ -103,9 +103,11 @@ export class TagsComponent implements OnInit {
     }
   }
 
-  public selected(event: MatAutocompleteSelectedEvent): void {
+  public selected(event: any): void {
     const index = this.allTagsName.indexOf(event.option.value);
-    this.addTags(this.tagId[index]);
+    if (this.tagId) {
+      this.addTags(this.tagId[index]);
+    }
     this.tagInput.nativeElement.value = '';
     this.tagsCtrl.setValue(null);
   }

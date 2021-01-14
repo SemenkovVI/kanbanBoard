@@ -2,15 +2,17 @@
   <app-header></app-header>
     <div class="board">
       <div class="board-bar">
-        <mat-icon class="btn-drop">arrow_drop_up</mat-icon>
+<!--        <mat-icon class="btn-drop">arrow_drop_up</mat-icon>-->
         <p class="board-name">Board Name</p>
         <app-modal [row]="'1'"></app-modal>
       </div>
 
       <div class="board-wrapper" >
-        <div class="board-columns" cdkDropListGroup>
+        <div class="board-columns" (window:resize)="onResize($event)" cdkDropListGroup *ngIf="width > 768">
             <app-row *ngFor="let title of titles; let index;" [name]="title.name" [id]="title.index" [header]="title.header" [color]="title.color"></app-row>
         </div>
+        <app-mobile-board [titles]="titles" *ngIf="width <= 768">
+        </app-mobile-board>
       </div>
     </div>
 </div>

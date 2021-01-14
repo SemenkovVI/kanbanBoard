@@ -4,6 +4,7 @@
 
    <app-tag *ngFor="let tag of tags" [tags]="tags" [tag]="tag" [rowId]="id" [isForm]="true"></app-tag>
     <input
+      maxlength="150"
       (click)="getTagId()"
       #tagInput
       [formControl]="tagsCtrl"
@@ -12,7 +13,7 @@
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" >
     <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
       {{tag}}
     </mat-option>

@@ -1,11 +1,14 @@
-<!--<h2 mat-dialog-title>{{Titles[rowNumber].name}}</h2>-->
-<h2 mat-dialog-title>{{rowNumber}}</h2>
-<button
-  mat-dialog-title
-  mat-dialog-close
-  class="btn-close">
-  <mat-icon>clear</mat-icon>
-</button>
+<div mat-dialog-title class="dialog-title">
+<div mat-dialog-title class="column-title id" *ngIf="Titles" [style]="{background: Titles[rowNumber].color}">
+  <mat-icon style="font-size: 20px">{{Titles[rowNumber].header}}</mat-icon>
+  <div class="column-title-wrapper">
+    <div class="column-title-name">{{Titles[rowNumber].name}}</div>
+  </div>
+</div>
+
+  <mat-icon mat-dialog-close class="btn-close">clear</mat-icon>
+
+</div>
 
 <mat-dialog-content>
 
@@ -61,7 +64,8 @@
     </mat-error>
   </mat-form-field>
 
-  <app-tags [row]="row" [id]="data.id"></app-tags>
+
+  <app-tags *ngIf="data.id" [row]="row" [id]="data.id"></app-tags>
 
 <mat-dialog-actions>
   <button *ngIf="!data.id"

@@ -1,0 +1,15 @@
+.dialog-title {
+  display: flex;
+  flex-direction: row;
+
+  .btn-close {
+    justify-self: flex-end;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+::ng-deep .tag-dialog-content {
+  overflow-wrap: anywhere;
+}

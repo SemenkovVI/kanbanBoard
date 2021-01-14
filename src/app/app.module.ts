@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
 import { ColorChromeModule } from 'ngx-color/chrome';
+import {MatTabsModule} from '@angular/material/tabs';
 import { environment } from '../environments/environment';
 import { FormComponent } from './form/form.component';
 import { TaskComponent } from './task/task.component';
@@ -37,6 +38,9 @@ import { HeaderComponent } from './header/header.component';
 import { ColorPickerComponent } from './tags/tag/color-picker/color-picker.component';
 import { TagsComponent } from './tags/tags.component';
 import { TagComponent } from './tags/tag/tag.component';
+import { MobileBoardComponent } from './mobile-board/mobile-board.component';
+import {SwiperModule} from 'swiper/angular';
+import { TagDialogComponent } from './tags/tag/tag-dialog/tag-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +55,8 @@ import { TagComponent } from './tags/tag/tag.component';
     ColorPickerComponent,
     TagsComponent,
     TagComponent,
+    MobileBoardComponent,
+    TagDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +83,8 @@ import { TagComponent } from './tags/tag/tag.component';
     ColorPickerModule,
     ColorPickerModule,
     ColorChromeModule,
+    MatTabsModule,
+    SwiperModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

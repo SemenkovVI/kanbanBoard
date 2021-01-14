@@ -5,6 +5,7 @@ import { Tag } from '../../tag';
 import { ColorPickerComponent } from './color-picker/color-picker.component';
 import { CRUDServiceService } from '../../services/crudservice.service';
 import { TagserviceService } from '../../services/tagservice.service';
+import {TagDialogComponent} from './tag-dialog/tag-dialog.component';
 
 @Component({
   selector: 'app-tag',
@@ -22,9 +23,20 @@ export class TagComponent implements OnInit {
 
   public color: string;
 
-  constructor(private tagService: TagserviceService, public colorPickerDialog: MatDialog) {}
+  constructor(
+    private tagService: TagserviceService,
+    public colorPickerDialog: MatDialog,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {}
+
+  openDialog(): void {
+    this.dialog.open(TagDialogComponent, {
+      width: '250px',
+      data: { name: this.tag.name },
+    });
+  }
 
   public updateTags(color: string): void {
     this.tagService.update('tags', this.tag.id, {

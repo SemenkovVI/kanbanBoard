@@ -15,13 +15,13 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tag } from '../tag';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { ColorPickerComponent } from '../tags/tag/color-picker/color-picker.component';
 import { Task } from '../task';
 import { TagserviceService } from '../services/tagservice.service';
 import { Title } from '../title';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-form',

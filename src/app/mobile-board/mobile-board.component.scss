@@ -1,0 +1,59 @@
+//.content {
+//  height: 100%;
+//  width: 100%;
+//  .swiper-wrapper {
+//    background-color: red;
+//  }
+//  .swiper-slide {
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//  }
+//  app-row {
+//    height: 100%;
+//    width: 100%;
+//  }
+//}
+//
+//swiper {
+//  height: 100%;
+//}
+//::ng-deep .swiper-slide {
+//  width: 100vw;
+//}
+@import "~swiper/swiper-bundle";
+
+//::ng-deep.swiper-wrapper {
+//  width: 100vw;
+//}
+//
+//.swiper-container {
+//  width: 100%;
+//  height: 300px;
+//  margin: 50px auto;
+//}
+//
+//.swiper-slide {
+//  background: #f1f1f1;
+//  color: #000;
+//  text-align: center;
+//  line-height: 300px;
+//}
+
+.swiper-container {
+  height: 100%;
+  margin-top: 5px;
+
+  ::ng-deep .board-column {
+    width: 80vw;
+    margin: 0 35px;
+  }
+}
+
+::ng-deep .mat-dialog-container {
+  min-width: 0 !important;
+}
+
+::ng-deep .mat-dialog-title {
+  width: auto !important;
+}
