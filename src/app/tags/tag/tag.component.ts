@@ -5,7 +5,7 @@ import { Tag } from '../../tag';
 import { ColorPickerComponent } from './color-picker/color-picker.component';
 import { CRUDServiceService } from '../../services/crudservice.service';
 import { TagserviceService } from '../../services/tagservice.service';
-import {TagDialogComponent} from './tag-dialog/tag-dialog.component';
+import { TagDialogComponent } from './tag-dialog/tag-dialog.component';
 
 @Component({
   selector: 'app-tag',
@@ -45,6 +45,7 @@ export class TagComponent implements OnInit {
   }
 
   public deleteTag(): void {
+    console.log(this.rowId);
     this.tagService.update('tags', this.tag.id, {
       uid: firebase.firestore.FieldValue.arrayRemove(this.rowId),
     });

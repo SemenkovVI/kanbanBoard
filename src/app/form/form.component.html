@@ -2,8 +2,17 @@
 <div mat-dialog-title class="column-title id" *ngIf="Titles" [style]="{background: Titles[rowNumber].color}">
   <mat-icon style="font-size: 20px">{{Titles[rowNumber].header}}</mat-icon>
   <div class="column-title-wrapper">
-    <div class="column-title-name">{{Titles[rowNumber].name}}</div>
+    <div class="column-title-name">
+        {{selectedRow}}
+      <mat-select *ngIf="data.id" [(value)]="selectedRow" (selectionChange)="updateRow($event)">
+        <mat-option disabled="true">Choose the row</mat-option>
+        <mat-option mat-dialog-close *ngFor="let title of Titles" [value]="title.name">
+          {{title.name}}
+        </mat-option>
+      </mat-select>
+    </div>
   </div>
+
 </div>
 
   <mat-icon mat-dialog-close class="btn-close">clear</mat-icon>
@@ -48,12 +57,13 @@
   </mat-form-field>
 
 
-  <mat-form-field  class = "example-full-width"  appearance = "fill">
+  <mat-form-field class = "example-full-width"  appearance = "fill">
     <mat-label> Выберите дату </mat-label>
     <input
       matInput
-      [matDatepickerFilter]="myFilter"
+      [errorStateMatcher]="matcher"
       [matDatepicker]="picker"
+      [matDatepickerFilter]="myFilter"
       formControlName="deadline"
     >
     <mat-datepicker-toggle  matSuffix [for] = "picker"></mat-datepicker-toggle>
@@ -62,10 +72,30 @@
     <mat-error *ngIf="isControlFilled('deadline')">
       Deadline is <strong>not filled</strong>
     </mat-error>
+
+    <mat-error *ngIf="ReactiveForm.invalid && data.id">
+      Deadline is <strong>passed</strong>
+    </mat-error>
   </mat-form-field>
 
 
   <app-tags *ngIf="data.id" [row]="row" [id]="data.id"></app-tags>
+
+  <div class=" column-title-user">
+    <span *ngIf="selectUser">
+      {{selectUser}}
+    </span>
+
+    <span *ngIf="!selectUser">
+      Choose the developer
+    </span>
+    <mat-select [(value)]="selectUser" (selectionChange)="updateUser($event)">
+      <mat-option disabled="true">Choose the developer</mat-option>
+      <mat-option *ngFor="let user of users" [value]="user.displayName">
+        {{user.displayName}}
+      </mat-option>
+    </mat-select>
+  </div>
 
 <mat-dialog-actions>
   <button *ngIf="!data.id"
@@ -89,7 +119,8 @@
     class="btn btn-primary"
     [disabled]="ReactiveForm.invalid"
     (click)="
-      updateObject();
+      updateObject(data.row);
+      update(currentUser.uid);
       deleteValue();
       "
   >
@@ -109,4 +140,3 @@
 </mat-dialog-actions>
 </form>
 </mat-dialog-content>
-<hr /> <br />

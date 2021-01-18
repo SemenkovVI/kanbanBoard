@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild, TemplateRef, ComponentRef} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -24,6 +24,9 @@ export class RowComponent implements OnInit {
 
   @Input()
   public color: string;
+
+  @Input()
+  public isMobile: boolean;
 
   public tasks: Task[];
 

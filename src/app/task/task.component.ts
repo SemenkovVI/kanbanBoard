@@ -1,16 +1,18 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {from, Subscription} from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import firebase from 'firebase';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CRUDServiceService } from '../services/crudservice.service';
 import { Task } from '../task';
 import { FormComponent } from '../form/form.component';
 import { Tag } from '../tag';
 import { TagserviceService } from '../services/tagservice.service';
+import { UserService } from '../services/user.service';
+import { User } from '../user';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
@@ -26,6 +28,7 @@ export class TaskComponent implements OnInit {
     public route: ActivatedRoute,
     private router: Router,
     private tagService: TagserviceService,
+    private userService: UserService,
   ) {}
 
   routeQueryParams$: Subscription;
@@ -42,33 +45,48 @@ export class TaskComponent implements OnInit {
 
   @Input() public deadline: Timestamp;
 
+  @Input() public user?: string;
+
   @Input() public task: Task;
 
-  public idForRoute: {};
-
   public tags: Tag[];
+
+  public taskUser: User;
+
+  public taskDeadline: any;
 
   ngOnInit(): void {
     this.tagService.getTags<Tag>('tags', this.index, this.taskID).subscribe((value: Tag[]) => {
       this.tags = value;
     });
-    this.idForRoute = { taskId: this.task.id };
 
+    this.taskDeadline = new Date(this.deadline.seconds * 1000);
+
+    if (this.user) {
+      this.userService.getUserById<User>('users', this.user).subscribe((value) => {
+        [this.taskUser] = value;
+      });
+    }
     if (this.router.url === `/board?taskId=${this.taskID}`) {
       this.onCreate();
     }
   }
 
-  public deleteObject(): void {
-    this.crudService.deleteObject('tasks', this.taskID).subscribe();
+  public checkDeadline(taskDate: any) {
+    return new Date(taskDate) < new Date();
   }
 
-  public init() {
-    this.routeQueryParams$ = this.route.queryParams.subscribe((params) => {
-      if (params.taskId) {
-        this.onCreate();
-      }
+  // public deleteObject(): void {
+  //   this.crudService.deleteObject('tasks', this.taskID).subscribe();
+  // }
+
+  public goToTask() {
+    this.router.navigate(['/board'], {
+      queryParams: {
+        taskId: this.task.id,
+      },
     });
+    this.onCreate();
   }
 
   onCreate() {
@@ -79,6 +97,7 @@ export class TaskComponent implements OnInit {
         row: this.index,
         text: this.text,
         deadline: new Date(this.deadline.seconds * 1000),
+        user: this.user,
       },
     });
 

@@ -8,4 +8,5 @@ export interface Task {
   name: string;
   deadline: Timestamp;
   tags?: [];
+  user?: string;
 }

@@ -19,6 +19,5 @@ export class HomeComponent implements OnInit {
 
   public login(): void {
     this.authService.googleAuth().subscribe(() => this.router.navigate(['board']));
-    console.log(this.authService.user$);
   }
 }

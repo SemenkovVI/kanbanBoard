@@ -1,5 +1,4 @@
-
-<mat-card class="task-card" >
+<mat-card class="task-card" (click)="goToTask()" >
     <mat-card-content>
       <div class="title text-truncate">{{taskName}}</div>
     </mat-card-content>
@@ -7,7 +6,26 @@
       <mat-chip-list class="chip-list">
         <app-tag class="chip" *ngFor="let tag of tags" [tags]="tags" [tag]="tag" [rowId]="id" [isForm]="false"></app-tag>
       </mat-chip-list>
+
+      <div class="task-footer">
+      <div class="deadline passed" *ngIf="checkDeadline(deadline.seconds * 1000)">
+        <mat-icon class="deadline-icon">alarm</mat-icon>
+        <span class="deadline-content">
+          {{taskDeadline | date :'mediumDate'}}
+        </span>
+      </div>
+        <div class="deadline" *ngIf="!checkDeadline(deadline.seconds * 1000)">
+          <mat-icon class="deadline-icon">alarm</mat-icon>
+          <span class="deadline-content">
+          {{taskDeadline | date :'mediumDate'}}
+        </span>
+        </div>
+
+      <div class="task-user">
+        <img class="user-img" *ngIf="taskUser" src="{{taskUser.photoURL}}" />
+      </div>
+      </div>
     </mat-card-actions>
-  <a (click)="init()" routerLink="/board" [queryParams]="idForRoute">Task</a>
+<!--  <a (click)="init()" routerLink="/board" [queryParams]="idForRoute">Task</a>-->
   </mat-card>
 

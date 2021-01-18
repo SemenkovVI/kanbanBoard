@@ -65,10 +65,6 @@ export class TagsComponent implements OnInit {
     });
   }
 
-  public clear(event: MatOptionSelectionChange) {
-    console.log(event.source.value);
-  }
-
   public addObject(name: string, color: string): void {
     this.tagService.createEntity('tags', {
       uid: [this.id],

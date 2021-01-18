@@ -24,7 +24,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
 import { ColorChromeModule } from 'ngx-color/chrome';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { SwiperModule } from 'swiper/angular';
+import { MatSelectModule } from '@angular/material/select';
 import { environment } from '../environments/environment';
 import { FormComponent } from './form/form.component';
 import { TaskComponent } from './task/task.component';
@@ -39,7 +41,6 @@ import { ColorPickerComponent } from './tags/tag/color-picker/color-picker.compo
 import { TagsComponent } from './tags/tags.component';
 import { TagComponent } from './tags/tag/tag.component';
 import { MobileBoardComponent } from './mobile-board/mobile-board.component';
-import {SwiperModule} from 'swiper/angular';
 import { TagDialogComponent } from './tags/tag/tag-dialog/tag-dialog.component';
 
 @NgModule({
@@ -85,6 +86,7 @@ import { TagDialogComponent } from './tags/tag/tag-dialog/tag-dialog.component';
     ColorChromeModule,
     MatTabsModule,
     SwiperModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

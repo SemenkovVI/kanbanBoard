@@ -36,11 +36,17 @@
     width: 100%;
 
     .column-title-name {
+      display: flex;
+      flex-direction: row;
       margin: 0;
       text-align: center;
       line-height: 30px;
     }
   }
+}
+
+.column-title-user {
+  margin: 0 auto ;
 }
 
 .example-action-buttons {
@@ -75,4 +81,12 @@
 
 .example-full-width {
   width: 100%;
+}
+
+mat-select {
+  width: 20px;
+}
+
+::ng-deep .mat-select-value {
+  display: none !important;
 }

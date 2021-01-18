@@ -19,6 +19,7 @@ export class ModalComponent implements OnInit {
     this.dialog.open(FormComponent, {
       data: {
         row: this.row,
+        user: '',
       },
     });
   }

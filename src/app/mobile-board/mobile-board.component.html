@@ -38,10 +38,16 @@
 <!--  </ng-template>-->
 <!--</swiper>-->
 
-<swiper [accessKey]="titles.length" [lazy]="true" [slidesPerView]="1" *ngIf="titles">
+<swiper [accessKey]="titles.length" [lazy]="true" [slidesPerView]="1" [pagination]=" { clickable: true } " *ngIf="titles">
   <ng-container *ngFor="let title of titles">
     <ng-template swiperSlide>
-      <app-row [name]="title.name" [id]="title.index" [header]="title.header" [color]="title.color"></app-row>
+      <app-row
+        [name]="title.name"
+        [id]="title.index"
+        [header]="title.header"
+        [color]="title.color"
+      [isMobile]="true">
+      </app-row>
     </ng-template>
   </ng-container>
 </swiper>

@@ -10,7 +10,7 @@ import SwiperCore, {
 import { Title } from '../title';
 import { CRUDServiceService } from '../services/crudservice.service';
 
-SwiperCore.use([Virtual, Lazy]);
+SwiperCore.use([Virtual, Lazy, Pagination, Navigation]);
 
 @Component({
   selector: 'app-mobile-board',

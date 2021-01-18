@@ -23,7 +23,9 @@
       [taskName]="task.name"
       [id] = "id"
       [deadline]="task.deadline"
+      [user]="task.user"
       cdkDrag
+      [cdkDragDisabled]="isMobile"
     >
     </app-task>
 
